@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
-
+var Stock = require('./stock');
 
 var User = mongoose.Schema({
   local: {	
@@ -8,7 +8,7 @@ var User = mongoose.Schema({
 	email: String,
 	password: String,	
  },
- 	// stocks: [String]
+ 	stocks: [Stock.schema]
 });
 
 User.methods.hash = function(password) {
