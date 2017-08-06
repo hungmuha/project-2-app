@@ -1,4 +1,5 @@
 var passport = require('passport');
+var request = require('request');
 //GET /signup
 function getSignup(request, response, next){
 	console.log("hit getSignup");
@@ -44,11 +45,22 @@ function member(request, response,next) {
 	response.render('member.ejs');
 }
 
+function search(req,res, next) {
+	console.log("hit search")
+	var index = req.params.search;
+	var searchThis="http://marketdata.websol.barchart.com/getQuote.json?apikey=11ba1fd5a7de3784398aa7d381ed4007&symbols="+index;
+		request(searchThis,function(err,res,body){
+			JSON.parse(body);
+			
+		});
+}
+
 module.exports = {
   getLogin: getLogin,
   postLogin: postLogin,
   getSignup: getSignup,
   postSignup: postSignup,
   getLogout: getLogout,
-  member: member
+  member: member,
+  search: search
 }

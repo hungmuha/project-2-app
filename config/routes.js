@@ -33,7 +33,7 @@ router.route("/logout")
 router.route("/member")
   .get(authenticatedUser,usersController.member)
 
-// router.route("/search")
-//   .get(usersController.search)
+router.route("/member/:search")
+  .get(usersController.search)
 
 module.exports = router;
