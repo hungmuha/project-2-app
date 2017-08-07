@@ -61,20 +61,20 @@ $(document).ready(function(){
 			datatype:'json',
 			success: function(data){
 				console.log(data);
-				var inPortfolio= "<h3 class='inPortfolio'> Your Portfolio : </h3>";
+				// var inPortfolio= "<h3 class='inPortfolio'> Your Portfolio : </h3>";
 				//add header to portfolio section
-				$('.portfolioInfo').append(inPortfolio);
-				for (i=0; i<data.length; i++){
-					var portfolioInfo = 
-"						<ul class='list-group'>"+				
-"						<li class='list-group-item'>" +
-"                        <h4 class='stockInFile'>" + data[i].name + "</h4>" +
-// "                        <span class='stockNumber'>" + data.dataset_data.data[0][i] + "</span>" +
-"                      </li>"+
-"						</ul>";					
-					//bring the information on the page to see all the sotcj that already on watch list
-					$(".stockPortfolio").append(portfolioInfo);
-				};
+// 				$('.portfolioInfo').append(inPortfolio);
+// 				for (i=0; i<data.length; i++){
+// 					var portfolioInfo = 
+// "						<ul class='list-group'>"+				
+// "						<li class='list-group-item'>" +
+// "                        <h4 class='stockInFile'>" + data[i].name + "</h4>" +
+// // "                        <span class='stockNumber'>" + data.dataset_data.data[0][i] + "</span>" +
+// "                      </li>"+
+// "						</ul>";					
+// 					//bring the information on the page to see all the sotcj that already on watch list
+// 					$(".stockPortfolio").append(portfolioInfo);
+// 				};
 			}
 		});
 	});

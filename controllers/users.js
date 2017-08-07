@@ -1,3 +1,4 @@
+('use strict')
 var passport = require('passport');
 var request = require('request');
 var db = require('../models');
@@ -52,10 +53,34 @@ function member(request, response,next) {
 
 function getPortfolio(request,response,next){
 	var id = request.params.id;
-	db.User.findById(id)
-	.exec(function(err,foundUser){
-		response.json(foundUser.stocks);
-	})
+	//using promise to make sure all the items comeback after hitting API
+	function getPromise(){
+		var stockPackage=[];
+		var requestSend = require('request');
+		db.User.findById(id)
+		.exec(function(err,foundUser){
+		
+			for (var i=0;i<foundUser.stocks.length;i++){
+
+				var apiURL = "https://www.quandl.com/api/v3/datasets/WIKI/"+foundUser.stocks[i].name+"/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
+				var gettingData = new Promise(
+					requestSend(apiURL,function(err,res,body){
+						var json= JSON.parse(body);
+						var stockData = {'Name' : foundUser.stocks[i].name, 'Date': json.dataset_data.data[0][i][0], 'Close-Price':json.dataset_data.data[0][i][4]};
+
+					});
+				)
+				stockPackage.push(gettingData);
+			}
+		
+			return stockPackage;		
+			response.json(stockPackage);
+		})
+	}
+	//these are not done
+	var promiseNotDone = getPromise();
+	console.log("these are not ready yet!");
+	console.log(promisesNotDone);
 }
 
 function postPortfolio(request,response, next) {
