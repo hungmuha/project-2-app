@@ -28,7 +28,7 @@ function getLogin(request, response, next) {
 //POST /login
 function postLogin(request, response, next) {
 	var loginProperty = passport.authenticate('local-login', {
-		successRedirect:'/',
+		successRedirect:'/member',
 		failureRedirect:'/login',
 		failureFlash :true
 	})
@@ -43,12 +43,11 @@ function getLogout(request, response,next) {
 }
 //get member after login and authenticated and authorized
 function member(request, response,next) {
-	response.render('member.ejs');
 	var email = request.params.email;
-	db.User.findOne({'local.email':email},function(err,user){
-		console.log(user);
-		response.json(user._id);
-	})
+	// db.User.findOne({'local.email':email},function(error,user){
+	// 	console.log(user);
+		response.render('member.ejs');
+	// });
 }
 
 function getPortfolio(request,response,next){
@@ -58,11 +57,13 @@ function getPortfolio(request,response,next){
 
 function postPortfolio(request,response, next) {
 	console.log("hit post portfolio")
+	var id = request.params.id;
 	db.User.findById(id)
 	.exec(function(err,foundUser){
-		foundUser.stocks.push({name: req.body.name});
+		console.log(foundUser);
+		foundUser.stocks.push({name: request.body.name});
 		foundUser.save(function(err){
-			res.json(foundUser);
+			response.json(foundUser);
 		});
 	});
 };

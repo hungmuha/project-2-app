@@ -1,20 +1,20 @@
 
 
-var searchUl = $("#searchResult");
-var searchData=$('#search').val();
-
 $(document).ready(function(){
 	console.log('ayy im working');
-	// const request = require ('request');
-	//display memeber Id on page
-	$('#member').attr("href","/member/"+$('#memberEmail').text());
-	console.log($('#memberEmail').text());
-	// ('click'),function(){
-	// 	var url = "/member/"+ $('#member').innerText;
-	// 	console.log($('#member').innerText);
-	// 	console.log(url);
 
-	// }
+
+	//display memeber Id on page
+
+	// $('#member').on('click',function(){
+	// 	var userEmail = $('#member').attr("href","/member/"+$('#memberEmail').text());
+	// 	console.log($('#memberEmail').text());
+	// 	$.get('/member/'+ $('#memberEmail').text());
+	// 	// .done(function(data){
+	// 	// 	console.log(data);
+	// 	// 	// $('.userId').innerText=data;
+	// 	// });
+	// });
 	
 	//trigger to search for stock on API
 	$('#searchStock').on("submit",function(event){
@@ -57,11 +57,14 @@ $(document).ready(function(){
 
 	//set function to add the stock in the portfolio
 	$('.save').on("click",function(){
+		var searchData=$('#search').val();
 		var stockSave = searchData;
 		var stockPortfolio = {"name":stockSave};
 		console.log(stockPortfolio);
-		var email= $('#member').innerText;
-		var postStock = "/member/"+email+"/portfolio";
+		//grabbing the User Id from member ejs
+		var id= $('#userId').text();
+		console.log(id);
+		var postStock = "/member/"+id+"/portfolio";
 		//ajax to call post in the portfolio
 		$.ajax({
 			method:"post",
@@ -72,15 +75,15 @@ $(document).ready(function(){
 				//get function to go to the new page to see all the stocks in portfolio
 				$.ajax({
 					method:"get",
-					url:"/member/portfolio",
+					url:"/member/"+id+"/portfolio",
 					success: function(){
 						console.log("in portfolio page now");
 					}
-				})
+				});
 			}
-		})
+		});
 
-	})
+	});
 
 
 

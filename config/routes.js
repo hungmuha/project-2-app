@@ -30,7 +30,7 @@ router.route('/login')
 router.route("/logout")
   .get(usersController.getLogout)
 
-router.route("/member/:email")
+router.route("/member")
   .get(authenticatedUser,usersController.member)
 
 router.route("/member/:id/portfolio")
