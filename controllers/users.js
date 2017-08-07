@@ -54,47 +54,48 @@ function member(request, response,next) {
 function getPortfolioInfo(request,response,next){
 	var id = request.params.id;
 	//using promise to make sure all the items comeback after hitting API
-	function getPromise(){
+	
 		var stockPackage=[];
 		var requestSend = require('request');
 		db.User.findById(id)
 		.exec(function(err,foundUser){
 		
-			for (var i=0;i<foundUser.stocks.length;i++){
-				
-				var stockName= foundUser.stocks[i].name;
-				var apiURL = "https://www.quandl.com/api/v3/datasets/WIKI/"+foundUser.stocks[i].name+"/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
-				
-				console.log(stockName);
-				
-				var gettingData = new Promise(
-					function(resolve,reject){
-					requestSend(apiURL,function(stockName,res,body){
-						var json= JSON.parse(body);
-						// console.log(stockName);
-						var stockData = {'Date': json.dataset_data.data[0][i][0], 'Close-Price':json.dataset_data.data[0][i][4]};
-						
-					})
-						resolve(stockData);
-					}
-					
-				);
-				stockPackage.push(gettingData);
-			}
-		
-		return stockPackage;		
-			
-		})
-	}
-	//these are not done
-	var promiseNotDone = getPromise();
-	console.log("these are not ready yet!");
-	console.log(promiseNotDone);
+				//these are not done
+			var promiseNotDone = getPromises(foundUser);
+			console.log("these are not ready yet!");
+			console.log(promiseNotDone);
 
-	Promise.all(promiseNotDone).then(data=>{
-		console.log("all of the promise are done!")
-		response.json(data);
-	})
+			Promise.all(promiseNotDone).then(data=>{
+				console.log("all of the promise are done!")
+				console.log(data);
+
+				response.json(data);
+			});
+
+			function getPromises(foundUser){
+				for (var i=0;i<foundUser.stocks.length;i++){
+					
+					var stockName= foundUser.stocks[i].name;
+					var apiURL = "https://www.quandl.com/api/v3/datasets/WIKI/"+foundUser.stocks[i].name+"/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
+					
+				
+					
+					var gettingData = new Promise(
+						function(resolve,reject){
+							requestSend(apiURL,function(stockName,res,body){
+								var json= JSON.parse(body);
+								// console.log(json.dataset_data.data[0][4]);
+								var stockData = {'Price':json.dataset_data.data[0][4]};
+								resolve(stockData);
+							})
+							
+						}	
+					);
+					stockPackage.push(gettingData);
+				}
+				return stockPackage;			
+			}
+		});
 }
 
 function getPortfolio(request,response,next) {
@@ -129,6 +130,7 @@ module.exports = {
   postSignup: postSignup,
   getLogout: getLogout,
   member: member,
+  getPortfolioInfo: getPortfolioInfo,
   getPortfolio: getPortfolio,
   postPortfolio: postPortfolio
 }

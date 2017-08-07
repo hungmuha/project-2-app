@@ -77,6 +77,30 @@ $(document).ready(function(){
 				};
 			}
 		});
+
+				$.ajax({
+			method:"get",
+			url: "/member/"+userId+"/portfolioInfo",
+			datatype:'json',
+			success: function(data){
+				console.log(data);
+				var inPortfolio= "<h3 class='performance'> Performance: </h3>";
+				// add header to portfolio section
+				$('.portfolioInfo').append(inPortfolio);
+				for (i=0; i<data.length; i++){
+					var portPerformance = 
+"						<ul class='list-group'>"+				
+"						<li class='list-group-item'>" +
+"                        <h4 class='performanceInFile'>" + data[i].Price + "</h4>" +
+// "                        <span class='stockNumber'>" + data.dataset_data.data[0][i] + "</span>" +
+"                      </li>"+
+"						</ul>";					
+					//bring the information on the page to see all the sotcj that already on watch list
+					$(".portfolioInfo").append(portPerformance);
+				};
+			}
+		});
+
 	});
 
 	//set function to add the stock in the portfolio
