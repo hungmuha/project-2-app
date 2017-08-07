@@ -1,7 +1,7 @@
 
 
 var searchUl = $("#searchResult");
-var stockInfo = document.createElement("li");
+var searchData=$('#search').val();
 
 $(document).ready(function(){
 	console.log('ayy im working');
@@ -11,7 +11,6 @@ $(document).ready(function(){
 
 		event.preventDefault();
 		console.log('submit');
-		var searchData=$('#search').val();
 		console.log(searchData);
 
 		// $.get("/member/"+searchData);
@@ -45,64 +44,33 @@ $(document).ready(function(){
 				$('.save').append(button);
 			}
 		});
-
-// function renderAlbum(album) {
-//   console.log('rendering album:', album);
-
-// 		var stockHtml =
-//   "        <!-- one album -->" +
-//   "        <div class='row stockSearch' stockIndex='" + searchData  + "'>" +
-//   "          <div class='col-md-10 col-md-offset-1'>" +
-//   "            <div class='panel panel-default'>" +
-//   "              <div class='panel-body'>" +
-//   "              <!-- begin stock internal row -->" +
- 
-//   "                <div class='row'>" +
-//   // "                  <div class='col-md-3 col-xs-12 thumbnail album-art'>" +
-//   // "                     <img src='" + "http://placehold.it/400x400'" +  " alt='album image'>" +
-//   // "                  </div>" +
-//   "                  <div class='col-md-9 col-xs-12'>" +
-//   "                    <ul class='list-group'>" +
-//   "                      <li class='list-group-item'>" +
-//   "                        <h4 class='inline-header'>"+data.dataset_data.column_names[i]+"</h4>" +
-//   "                        <span class='stockAttribute'>" + data.dataset_data.data[0][i] + "</span>" +
-//   "                      </li>" +
-//   "                      <li class='list-group-item'>" +
-//   "                        <h4 class='inline-header'>Artist Name:</h4>" +
-//   "                        <span class='artist-name'>" +  album.artistName+ "</span>" +
-//   "                      </li>" +
-//   "                      <li class='list-group-item'>" +
-//   "                        <h4 class='inline-header'>Released date:</h4>" +
-//   "                        <span class='album-releaseDate'>" + album.releaseDate + "</span>" +
-//   "                      </li>" +
-//   "                      <li class='list-group-item'>" +
-//   "                        <h4 class='inline-header'>Songs:</h4>"+
-//   "                        <span>" + buildSongHtml(album.songs) + "</span>"+
-//   "                        </li>"+
-
-//   "                    </ul>" +
-//   "                  </div>" +
-//   "                </div>" +
-//   "                <!-- end of stock internal row -->" +
-
-//   "              </div>" + // end of panel-body
-
-//   "              <div class='panel-footer'>" +
-//   "               <button class='btn btn-primary add-stock'>Add Song</button>"
-//   "              </div>" +
-
-//   "            </div>" +
-//   "          </div>" +
-//   "          <!-- end one album -->";
-
-//  // render to the page with jQuery
-//   $('#albums').append(albumHtml);
-// }
-
-
-
-
 	});
+
+	//set function to add the stock in the portfolio
+	$('.save').on("click",function(){
+		var stockSave = searchData;
+		var stockPortfolio = {"name":stockSave};
+		console.log(stockPortfolio);
+		var postStock = "/member/portfolio";
+		//ajax to call post in the portfolio
+		$.ajax({
+			method:"post",
+			url:postStock,
+			data: stockPortfolio,
+			success: function(){
+				console.log("done adding")
+				//get function to go to the new page to see all the stocks in portfolio
+				$.ajax({
+					method:"get",
+					url:"/member/portfolio",
+					success: function(){
+						console.log("in portfolio page now");
+					}
+				})
+			}
+		})
+
+	})
 
 
 
