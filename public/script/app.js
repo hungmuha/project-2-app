@@ -6,14 +6,23 @@ var searchData=$('#search').val();
 $(document).ready(function(){
 	console.log('ayy im working');
 	// const request = require ('request');
+	//display memeber Id on page
+	$('#member').attr("href","/member/"+$('#memberEmail').text());
+	console.log($('#memberEmail').text());
+	// ('click'),function(){
+	// 	var url = "/member/"+ $('#member').innerText;
+	// 	console.log($('#member').innerText);
+	// 	console.log(url);
 
+	// }
+	
+	//trigger to search for stock on API
 	$('#searchStock').on("submit",function(event){
-
+		var searchData=$('#search').val();
 		event.preventDefault();
 		console.log('submit');
 		console.log(searchData);
 
-		// $.get("/member/"+searchData);
 		var searchThis="https://www.quandl.com/api/v3/datasets/WIKI/"+searchData+"/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
 		$.ajax({
 			method: "get",
@@ -51,7 +60,8 @@ $(document).ready(function(){
 		var stockSave = searchData;
 		var stockPortfolio = {"name":stockSave};
 		console.log(stockPortfolio);
-		var postStock = "/member/portfolio";
+		var email= $('#member').innerText;
+		var postStock = "/member/"+email+"/portfolio";
 		//ajax to call post in the portfolio
 		$.ajax({
 			method:"post",

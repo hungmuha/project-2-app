@@ -1,5 +1,6 @@
 var passport = require('passport');
 var request = require('request');
+var db = require('../models');
 //GET /signup
 function getSignup(request, response, next){
 	console.log("hit getSignup");
@@ -27,11 +28,11 @@ function getLogin(request, response, next) {
 //POST /login
 function postLogin(request, response, next) {
 	var loginProperty = passport.authenticate('local-login', {
-		successRedirect:'/member',
+		successRedirect:'/',
 		failureRedirect:'/login',
 		failureFlash :true
 	})
-
+	console.log(request.body);
 	return loginProperty(request, response, next);
 }
 
@@ -43,17 +44,30 @@ function getLogout(request, response,next) {
 //get member after login and authenticated and authorized
 function member(request, response,next) {
 	response.render('member.ejs');
+	var email = request.params.email;
+	db.User.findOne({'local.email':email},function(err,user){
+		console.log(user);
+		response.json(user._id);
+	})
 }
 
-function search(req,res, next) {
-	console.log("hit search")
-	var index = req.params.search;
-	var searchThis="http://marketdata.websol.barchart.com/getQuote.json?apikey=11ba1fd5a7de3784398aa7d381ed4007&symbols="+index;
-		request(searchThis,function(err,res,body){
-			JSON.parse(body);
-			
-		});
+function getPortfolio(request,response,next){
+	response.render('member.ejs');
+	console.log(foundUser.stocks);
 }
+
+function postPortfolio(request,response, next) {
+	console.log("hit post portfolio")
+	db.User.findById(id)
+	.exec(function(err,foundUser){
+		foundUser.stocks.push({name: req.body.name});
+		foundUser.save(function(err){
+			res.json(foundUser);
+		});
+	});
+};
+
+
 
 module.exports = {
   getLogin: getLogin,
@@ -62,5 +76,6 @@ module.exports = {
   postSignup: postSignup,
   getLogout: getLogout,
   member: member,
-  search: search
+  getPortfolio: getPortfolio,
+  postPortfolio: postPortfolio
 }

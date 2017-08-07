@@ -30,10 +30,11 @@ router.route('/login')
 router.route("/logout")
   .get(usersController.getLogout)
 
-router.route("/member")
+router.route("/member/:email")
   .get(authenticatedUser,usersController.member)
 
-router.route("/member/:search")
-  .get(usersController.search)
+router.route("/member/:id/portfolio")
+  .get(usersController.getPortfolio)
+  .post(usersController.postPortfolio)
 
 module.exports = router;

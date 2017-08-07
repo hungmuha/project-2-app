@@ -7,14 +7,9 @@ var morgan = require('morgan');
 var cookieParser= require('cookie-parser');
 var bodyParser= require('body-parser');
 var session= require('express-session');
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-}
 
-mongoose.connect('mongodb://localhost/project-2');
+
+// mongoose.connect('mongodb://localhost/project-2');
 
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -34,7 +29,7 @@ app.use(flash());
 
 require('./config/passport')(passport);
 
-app.use(allowCrossDomain);
+
 app.use(function(req,res,next){
 	res.locals.currentUser = req.user;
 	next();
