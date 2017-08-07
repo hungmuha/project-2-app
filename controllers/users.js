@@ -51,8 +51,11 @@ function member(request, response,next) {
 }
 
 function getPortfolio(request,response,next){
-	response.render('member.ejs');
-	console.log(foundUser.stocks);
+	var id = request.params.id;
+	db.User.findById(id)
+	.exec(function(err,foundUser){
+		response.json(foundUser.stocks);
+	})
 }
 
 function postPortfolio(request,response, next) {

@@ -22,6 +22,7 @@ $(document).ready(function(){
 		event.preventDefault();
 		console.log('submit');
 		console.log(searchData);
+		var userId= $('#userId').text();
 
 		var searchThis="https://www.quandl.com/api/v3/datasets/WIKI/"+searchData+"/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
 		$.ajax({
@@ -33,7 +34,7 @@ $(document).ready(function(){
 				console.log(data.dataset_data.column_names);
 				console.log(data.dataset_data.data[0]);
 				var stockName = "<h3 class='stockName'>"+searchData+"</h3>";
-				$('.name').append(stockName);
+				$('.stockList').append(stockName);
 								//for loop to append the newly available infor from API to page
 				for(i=0; i<data.dataset_data.column_names.length;i++){
 					var stockInfo =
@@ -51,6 +52,29 @@ $(document).ready(function(){
 				button.setAttribute('class','btn btn-primary add-stock')
 				button.innerText="SAVE";
 				$('.save').append(button);
+			}
+		});
+
+		$.ajax({
+			method:"get",
+			url: "/member/"+userId+"/portfolio",
+			datatype:'json',
+			success: function(data){
+				console.log(data);
+				var inPortfolio= "<h3 class='inPortfolio'> Your Portfolio : </h3>";
+				//add header to portfolio section
+				$('.portfolioInfo').append(inPortfolio);
+				for (i=0; i<data.length; i++){
+					var portfolioInfo = 
+"						<ul class='list-group'>"+				
+"						<li class='list-group-item'>" +
+"                        <h4 class='stockInFile'>" + data[i].name + "</h4>" +
+// "                        <span class='stockNumber'>" + data.dataset_data.data[0][i] + "</span>" +
+"                      </li>"+
+"						</ul>";					
+					//bring the information on the page to see all the sotcj that already on watch list
+					$(".stockPortfolio").append(portfolioInfo);
+				};
 			}
 		});
 	});
