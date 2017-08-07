@@ -51,7 +51,7 @@ function member(request, response,next) {
 	// });
 }
 
-function getPortfolio(request,response,next){
+function getPortfolioInfo(request,response,next){
 	var id = request.params.id;
 	//using promise to make sure all the items comeback after hitting API
 	function getPromise(){
@@ -61,26 +61,50 @@ function getPortfolio(request,response,next){
 		.exec(function(err,foundUser){
 		
 			for (var i=0;i<foundUser.stocks.length;i++){
-
+				
+				var stockName= foundUser.stocks[i].name;
 				var apiURL = "https://www.quandl.com/api/v3/datasets/WIKI/"+foundUser.stocks[i].name+"/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
+				
+				console.log(stockName);
+				
 				var gettingData = new Promise(
-					requestSend(apiURL,function(err,res,body){
+					function(resolve,reject){
+					requestSend(apiURL,function(stockName,res,body){
 						var json= JSON.parse(body);
-						var stockData = {'Name' : foundUser.stocks[i].name, 'Date': json.dataset_data.data[0][i][0], 'Close-Price':json.dataset_data.data[0][i][4]};
-
-					});
-				)
+						// console.log(stockName);
+						var stockData = {'Date': json.dataset_data.data[0][i][0], 'Close-Price':json.dataset_data.data[0][i][4]};
+						
+					})
+						resolve(stockData);
+					}
+					
+				);
 				stockPackage.push(gettingData);
 			}
 		
-			return stockPackage;		
-			response.json(stockPackage);
+		return stockPackage;		
+			
 		})
 	}
 	//these are not done
 	var promiseNotDone = getPromise();
 	console.log("these are not ready yet!");
-	console.log(promisesNotDone);
+	console.log(promiseNotDone);
+
+	Promise.all(promiseNotDone).then(data=>{
+		console.log("all of the promise are done!")
+		response.json(data);
+	})
+}
+
+function getPortfolio(request,response,next) {
+	console.log("hit get portfolio name")
+	var id = request.params.id;
+	db.User.findById(id)
+	.exec(function(err,foundUser){
+		console.log(foundUser);
+		response.json(foundUser.stocks);
+	});
 }
 
 function postPortfolio(request,response, next) {

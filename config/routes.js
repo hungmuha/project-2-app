@@ -37,4 +37,7 @@ router.route("/member/:id/portfolio")
   .get(usersController.getPortfolio)
   .post(usersController.postPortfolio)
 
+// router.route("/member/:id/portfolioInfo")
+//   .get(usersController.getPortfolioInfo)
+
 module.exports = router;
