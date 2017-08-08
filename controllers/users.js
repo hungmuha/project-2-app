@@ -3,7 +3,7 @@ var passport = require('passport');
 var request = require('request');
 var db = require('../models');
 var apiKey;
-if(process.env.apiKey){apiKey = require('apiKey')} else
+if(process.env.apiKey){apiKey = apiKey} else
 {apiKey = require('../keys')};
 //GET /signup
 function getSignup(request, response, next){
