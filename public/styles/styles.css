@@ -9,4 +9,16 @@
 	width:100%;
 	position: relative;
 }
+body{
+	background-image: url('http://www.hddesktopbackgrounds.us/backgrounds-images/1920x1080/o6d4k-wallpapers-33589172-1920x1080.jpg');
+	background-size: cover;
+}
+.headMember{
+	text-align: center;
+	font-weight: bold;
+	color:white;
+}
 
+main{
+	color:white;
+}
