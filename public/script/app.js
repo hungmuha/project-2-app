@@ -15,7 +15,7 @@ $(document).ready(function(){
 		console.log(searchData);
 		var userId= $('#userId').text();
 
-		var searchThis="https://www.quandl.com/api/v3/datasets/WIKI/"+searchData+"/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
+		var searchThis="https://www.quandl.com/api/v3/datasets/WIKI/"+searchData+"/data.json?";
 		$.ajax({
 			method: "get",
 			url: searchThis,
