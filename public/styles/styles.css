@@ -1,0 +1,11 @@
+.stockInFile{
+	display: inline-block;
+}
+.delStock{
+	display: inline-block;
+	float:right;
+}
+.portfolioList{
+	width:100%;
+	position: relative;
+}

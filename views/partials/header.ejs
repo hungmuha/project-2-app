@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <title>TRACKING PORTFOLIO</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/styles.css">
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <!-- APPLICATION SCRIPTS -->
@@ -23,7 +24,7 @@
 			<div class="collapse navbar-collapse" id="user-menu">
 				<ul class="nav navbar-nav">
               			<% if (currentUser) {%>
-              		<li id="memberEmail"><a id="member"><%= currentUser.local.email %><li>
+              		<li><a href="/member"><%= currentUser.local.email %><li>
               		<li><a href="/logout">Logout </a></li>
            			 	<% } else { %>
               		<li><a href="/login">Login</a></li>

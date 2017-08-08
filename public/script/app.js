@@ -3,21 +3,12 @@
 $(document).ready(function(){
 	console.log('ayy im working');
 
-
-	//display memeber Id on page
-
-	// $('#member').on('click',function(){
-	// 	var userEmail = $('#member').attr("href","/member/"+$('#memberEmail').text());
-	// 	console.log($('#memberEmail').text());
-	// 	$.get('/member/'+ $('#memberEmail').text());
-	// 	// .done(function(data){
-	// 	// 	console.log(data);
-	// 	// 	// $('.userId').innerText=data;
-	// 	// });
-	// });
-	
 	//trigger to search for stock on API
 	$('#searchStock').on("submit",function(event){
+		// $('.portfolioInfo').remove();
+		// $('.stockList').remove();
+		// $('.stockPortfolio').remove();
+		
 		var searchData=$('#search').val();
 		event.preventDefault();
 		console.log('submit');
@@ -31,9 +22,11 @@ $(document).ready(function(){
 			datatype: 'json',
 			success: function(data){
 				// console.log(data);
+				
 				console.log(data.dataset_data.column_names);
 				console.log(data.dataset_data.data[0]);
 				var stockName = "<h3 class='stockName'>"+searchData+"</h3>";
+
 				$('.stockList').append(stockName);
 								//for loop to append the newly available infor from API to page
 				for(i=0; i<data.dataset_data.column_names.length;i++){
@@ -60,6 +53,7 @@ $(document).ready(function(){
 			url: "/member/"+userId+"/portfolio",
 			datatype:'json',
 			success: function(data){
+				
 				console.log(data);
 				var inPortfolio= "<h3 class='inPortfolio'> Your Portfolio : </h3>";
 				// add header to portfolio section
@@ -67,7 +61,7 @@ $(document).ready(function(){
 				for (i=0; i<data.length; i++){
 					var portfolioInfo = 
 "						<ul class='list-group'>"+				
-"						<li class='list-group-item'>" +
+"						<li class='list-group-item portfolioList'>" +
 "                        <h4 class='stockInFile'>" + data[i].name + "</h4>" +
 // "                        <span class='stockNumber'>" + data.dataset_data.data[0][i] + "</span>" +
 "                      </li>"+
@@ -75,23 +69,29 @@ $(document).ready(function(){
 					//bring the information on the page to see all the sotcj that already on watch list
 					$(".stockPortfolio").append(portfolioInfo);
 				};
+				var button = document.createElement('button');
+				button.setAttribute('class','btn btn-primary delStock')
+				button.innerText="Delete";
+				$('.portfolioList').append(button);
 			}
 		});
 
-				$.ajax({
+		$.ajax({
 			method:"get",
 			url: "/member/"+userId+"/portfolioInfo",
 			datatype:'json',
 			success: function(data){
+
 				console.log(data);
 				var inPortfolio= "<h3 class='performance'> Performance: </h3>";
 				// add header to portfolio section
+				
 				$('.portfolioInfo').append(inPortfolio);
 				for (i=0; i<data.length; i++){
 					var portPerformance = 
 "						<ul class='list-group'>"+				
 "						<li class='list-group-item'>" +
-"                        <h4 class='performanceInFile'>" + data[i].Price + "</h4>" +
+"                        <h4 class='performanceInFile'> $" + data[i].Price + "</h4>" +
 // "                        <span class='stockNumber'>" + data.dataset_data.data[0][i] + "</span>" +
 "                      </li>"+
 "						</ul>";					
@@ -102,6 +102,8 @@ $(document).ready(function(){
 		});
 
 	});
+
+
 
 	//set function to add the stock in the portfolio
 	$('.save').on("click",function(){
@@ -133,6 +135,19 @@ $(document).ready(function(){
 
 	});
 
+	$('.delStock').click(function(){
+	var id= $('#userId').text();
+	console.log('clicked');
+	var stockIndex= $(this).parents('.portfolioList').text();
+	console.log(stockIndex);
+			// $.ajax({
+	  //    	 method: 'DELETE',
+	  //    	 url: '/member/'+id+"/portfolio/"+stockIndex,
+	  //     	 success: function(){
+
+	  //     	 }
+	  //   	});
+	});
 
 
 	

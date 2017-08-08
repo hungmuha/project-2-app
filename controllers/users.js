@@ -2,6 +2,7 @@
 var passport = require('passport');
 var request = require('request');
 var db = require('../models');
+var apiKey = require('../keys');
 //GET /signup
 function getSignup(request, response, next){
 	console.log("hit getSignup");
@@ -55,47 +56,46 @@ function getPortfolioInfo(request,response,next){
 	var id = request.params.id;
 	//using promise to make sure all the items comeback after hitting API
 	
-		var stockPackage=[];
-		var requestSend = require('request');
-		db.User.findById(id)
-		.exec(function(err,foundUser){
-		
-				//these are not done
-			var promiseNotDone = getPromises(foundUser);
-			console.log("these are not ready yet!");
-			console.log(promiseNotDone);
+	var stockPackage=[];
+	var requestSend = require('request');
+	//----->
+	db.User.findById(id).exec(function(err,foundUser){
+		var promiseNotDone = getPromises(foundUser);
+		console.log("these are not ready yet!");
+		console.log(promiseNotDone);
 
-			Promise.all(promiseNotDone).then(data=>{
-				console.log("all of the promise are done!")
-				console.log(data);
+		Promise.all(promiseNotDone).then(data=>{
+			console.log("all of the promise are done!")
+			console.log(data);
 
-				response.json(data);
-			});
-
-			function getPromises(foundUser){
-				for (var i=0;i<foundUser.stocks.length;i++){
-					
-					var stockName= foundUser.stocks[i].name;
-					var apiURL = "https://www.quandl.com/api/v3/datasets/WIKI/"+foundUser.stocks[i].name+"/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
-					
-				
-					
-					var gettingData = new Promise(
-						function(resolve,reject){
-							requestSend(apiURL,function(stockName,res,body){
-								var json= JSON.parse(body);
-								// console.log(json.dataset_data.data[0][4]);
-								var stockData = {'Price':json.dataset_data.data[0][4]};
-								resolve(stockData);
-							})
-							
-						}	
-					);
-					stockPackage.push(gettingData);
-				}
-				return stockPackage;			
-			}
+			response.json(data);
 		});
+	//all the promises is listed down here and will be executed and return to stockPackage
+		function getPromises(foundUser){
+			for (var i=0;i<foundUser.stocks.length;i++){
+				
+				var stockName= foundUser.stocks[i].name;
+				var apiURL = "https://www.quandl.com/api/v3/datasets/WIKI/"+foundUser.stocks[i].name+"/data.json?api_key="+apiKey;
+				
+			
+				
+				var gettingData = new Promise(
+					function(resolve,reject){
+						requestSend(apiURL,function(stockName,res,body){
+							var json= JSON.parse(body);
+							// console.log(json.dataset_data.data[0][4]);
+							var stockData = {'Price': json.dataset_data.data[0][4]};
+							resolve(stockData);
+						})
+						
+					}	
+				);
+				stockPackage.push(gettingData);
+			}
+			return stockPackage;			
+		}
+	});
+	//----->
 }
 
 function getPortfolio(request,response,next) {

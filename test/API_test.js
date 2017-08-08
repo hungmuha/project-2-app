@@ -8,7 +8,7 @@ describe('testing Shakes', function(done){
 	var res;
 	var bod;
 	before(function (done){
-		URL= "http://marketdata.websol.barchart.com/getQuote.json?apikey=11ba1fd5a7de3784398aa7d381ed4007&symbols=ZC*1,IBM,GOOGL,";
+		URL= "https://www.quandl.com/api/v3/datasets/WIKI/IBM/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
 		request(URL,function(error,response,body){
 			err=error;
 			res=response;
