@@ -40,4 +40,7 @@ router.route("/member/:id/portfolio")
 router.route("/member/:id/portfolioInfo")
   .get(usersController.getPortfolioInfo)
 
+router.route("/member/:id/portfolio/:stock")
+  .delete(usersController.deleteStock)
+
 module.exports = router;

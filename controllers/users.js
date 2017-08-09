@@ -123,7 +123,21 @@ function postPortfolio(request,response, next) {
 	});
 };
 
-
+function deleteStock(request,response,next) {
+		console.log("hit the delete Stock")
+	var id= request.params.id;
+	var stock= request.params.stock;
+	db.User.findById(id)
+		.exec(function(err,foundUser){
+		for (i=0; i<foundUser.stocks.length ; i++){
+			if(stock==foundUser.stocks[0]){
+				console.log('found that stock')
+				foundUser.stocks.splice(i,1);
+				res.json(foundUser.stocks[i]);
+			}
+		}
+	});
+}
 
 module.exports = {
   getLogin: getLogin,
@@ -134,5 +148,6 @@ module.exports = {
   member: member,
   getPortfolioInfo: getPortfolioInfo,
   getPortfolio: getPortfolio,
-  postPortfolio: postPortfolio
+  postPortfolio: postPortfolio,
+  deleteStock:deleteStock
 }

@@ -8,14 +8,14 @@ $(document).ready(function(){
 		// $('.portfolioInfo').remove();
 		// $('.stockList').remove();
 		// $('.stockPortfolio').remove();
-		
+
 		var searchData=$('#search').val();
 		event.preventDefault();
 		console.log('submit');
 		console.log(searchData);
 		var userId= $('#userId').text();
 
-		var searchThis="https://www.quandl.com/api/v3/datasets/WIKI/"+searchData+"/data.json?";
+		var searchThis="https://www.quandl.com/api/v3/datasets/WIKI/"+searchData+"/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
 		$.ajax({
 			method: "get",
 			url: searchThis,
@@ -73,6 +73,21 @@ $(document).ready(function(){
 				button.setAttribute('class','btn btn-primary delStock')
 				button.innerText="Delete";
 				$('.portfolioList').append(button);
+
+				$('.delStock').click(function(){
+					var id= $('#userId').text();
+						console.log('clicked');
+					var stockIndex= $(this).parents('.portfolioList').find('h4').text();
+						console.log(stockIndex);
+							$.ajax({
+					     	 method: 'DELETE',
+					     	 url: '/member/'+id+"/portfolio/"+stockIndex,
+					      	 success: function(){
+					      	 	console.log("got that delete done");
+					      	 }
+					    	});
+				});
+
 			}
 		});
 
@@ -135,19 +150,7 @@ $(document).ready(function(){
 
 	});
 
-	$('.delStock').click(function(){
-	var id= $('#userId').text();
-	console.log('clicked');
-	var stockIndex= $(this).parents('.portfolioList').text();
-	console.log(stockIndex);
-			// $.ajax({
-	  //    	 method: 'DELETE',
-	  //    	 url: '/member/'+id+"/portfolio/"+stockIndex,
-	  //     	 success: function(){
-
-	  //     	 }
-	  //   	});
-	});
+	
 
 
 	
