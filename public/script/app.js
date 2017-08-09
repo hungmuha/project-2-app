@@ -82,8 +82,9 @@ $(document).ready(function(){
 							$.ajax({
 					     	 method: 'DELETE',
 					     	 url: '/member/'+id+"/portfolio/"+stockIndex,
-					      	 success: function(){
+					      	 success: function(data){
 					      	 	console.log("got that delete done");
+					      	 	console.log(data);
 					      	 }
 					    	});
 				});

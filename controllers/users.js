@@ -127,13 +127,15 @@ function deleteStock(request,response,next) {
 		console.log("hit the delete Stock")
 	var id= request.params.id;
 	var stock= request.params.stock;
+		console.log(stock);
 	db.User.findById(id)
 		.exec(function(err,foundUser){
-		for (i=0; i<foundUser.stocks.length ; i++){
-			if(stock==foundUser.stocks[0]){
-				console.log('found that stock')
+		for (i=0; i<foundUser.stocks.length ; ++i){
+			if(stock == foundUser.stocks[i].name){
+				console.log('found that stock');
 				foundUser.stocks.splice(i,1);
-				res.json(foundUser.stocks[i]);
+				foundUser.save();
+				response.json(foundUser.stocks);
 			}
 		}
 	});
