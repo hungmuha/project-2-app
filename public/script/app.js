@@ -32,7 +32,7 @@ $(document).ready(function(){
 				for(i=0; i<data.dataset_data.column_names.length;i++){
 					var stockInfo =
   "						<ul class='list-group'>"+				
-  "						<li class='list-group-item'>" +
+  "						<li class='list-group-item apiResult'>" +
   "                        <h4 class='stockAttribute'>" + data.dataset_data.column_names[i] + "</h4>" +
   "                        <span class='stockNumber'>" + data.dataset_data.data[0][i] + "</span>" +
   "                      </li>"+
@@ -47,8 +47,12 @@ $(document).ready(function(){
 				$('.save').append(button);
 			}
 		});
+			getStock(userId);
+			getInfo(userId);
+	});
 
-		$.ajax({
+	//function that send ajax call to back end to get name of stock in the User portfolio
+	function getStock(userId){$.ajax({
 			method:"get",
 			url: "/member/"+userId+"/portfolio",
 			datatype:'json',
@@ -85,13 +89,16 @@ $(document).ready(function(){
 					      	 success: function(data){
 					      	 	console.log("got that delete done");
 					      	 	console.log(data);
+					      	 	location.reload();
 					      	 }
 					    	});
 				});
 
 			}
 		});
-
+	}
+		//function that send ajax call to get information about the stock in portfolio
+	function getInfo(userId){	
 		$.ajax({
 			method:"get",
 			url: "/member/"+userId+"/portfolioInfo",
@@ -106,7 +113,7 @@ $(document).ready(function(){
 				for (i=0; i<data.length; i++){
 					var portPerformance = 
 "						<ul class='list-group'>"+				
-"						<li class='list-group-item'>" +
+"						<li class='list-group-item portfolioList'>" +
 "                        <h4 class='performanceInFile'> $" + data[i].Price + "</h4>" +
 // "                        <span class='stockNumber'>" + data.dataset_data.data[0][i] + "</span>" +
 "                      </li>"+
@@ -116,10 +123,7 @@ $(document).ready(function(){
 				};
 			}
 		});
-
-	});
-
-
+	}
 
 	//set function to add the stock in the portfolio
 	$('.save').on("click",function(){
@@ -144,6 +148,7 @@ $(document).ready(function(){
 					url:"/member/"+id+"/portfolio",
 					success: function(){
 						console.log("in portfolio page now");
+						location.reload();
 					}
 				});
 			}

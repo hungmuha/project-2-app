@@ -5,9 +5,34 @@
 	display: inline-block;
 	float:right;
 }
+.stockList{
+	text-align: center;
+	text-transform: uppercase;
+}
+.portfolioInfo{
+	text-align: center;
+}
 .portfolioList{
 	width:100%;
 	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+	background-color: #09F60B;
+}
+.inPortfolio{
+	text-align: center;
+}
+.stockAttribute{
+	font-size: 15px;
+	display: inline-block;
+}
+.apiResult{
+	background-color: #F4640B;
+}
+.stockNumber{
+	display: inline-block;
+	font-size: 20px;
+	margin-left: 10px;
 }
 body{
 	background-image: url('http://www.hddesktopbackgrounds.us/backgrounds-images/1920x1080/o6d4k-wallpapers-33589172-1920x1080.jpg');

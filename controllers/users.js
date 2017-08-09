@@ -53,7 +53,7 @@ function member(request, response,next) {
 		response.render('member.ejs');
 	// });
 }
-
+//get controller that get the information of all the stocks price in the portfolio
 function getPortfolioInfo(request,response,next){
 	var id = request.params.id;
 	//using promise to make sure all the items comeback after hitting API
@@ -100,6 +100,7 @@ function getPortfolioInfo(request,response,next){
 	//----->
 }
 
+//get controller that show the currentuser portfolio
 function getPortfolio(request,response,next) {
 	console.log("hit get portfolio name")
 	var id = request.params.id;
@@ -109,7 +110,7 @@ function getPortfolio(request,response,next) {
 		response.json(foundUser.stocks);
 	});
 }
-
+//post controller that allow adding new stock to the user profile
 function postPortfolio(request,response, next) {
 	console.log("hit post portfolio")
 	var id = request.params.id;
@@ -123,6 +124,7 @@ function postPortfolio(request,response, next) {
 	});
 };
 
+//delete controller that allow delete a stock from the user profile
 function deleteStock(request,response,next) {
 		console.log("hit the delete Stock")
 	var id= request.params.id;
