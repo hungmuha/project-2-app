@@ -73,11 +73,13 @@ $(document).ready(function(){
 					//bring the information on the page to see all the sotcj that already on watch list
 					$(".stockPortfolio").append(portfolioInfo);
 				};
+				//add delete button right next to the stock name in portfolio to trigger delete the strock from portfolio
 				var button = document.createElement('button');
 				button.setAttribute('class','btn btn-primary delStock')
 				button.innerText="Delete";
 				$('.portfolioList').append(button);
 
+				//if use click delete button, ajax call
 				$('.delStock').click(function(){
 					var id= $('#userId').text();
 						console.log('clicked');
@@ -109,7 +111,7 @@ $(document).ready(function(){
 				var inPortfolio= "<h3 class='performance'> Performance: </h3>";
 				// add header to portfolio section
 				
-				$('.portfolioInfo').append(inPortfolio);
+				$('.portfolioInfo').append(inPortfolio); //ajax call and print on the performance section next to the stock name
 				for (i=0; i<data.length; i++){
 					var portPerformance = 
 "						<ul class='list-group'>"+				
