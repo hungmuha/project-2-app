@@ -2,6 +2,9 @@
 
 $(document).ready(function(){
 	console.log('ayy im working');
+	var userId= $('#userId').text();
+	getStock(userId);
+	getInfo(userId);
 
 	//trigger to search for stock on API
 	$('#searchStock').on("submit",function(event){
@@ -14,7 +17,8 @@ $(document).ready(function(){
 		console.log('submit');
 		console.log(searchData);
 		var userId= $('#userId').text();
-
+		
+		
 		var searchThis="https://www.quandl.com/api/v3/datasets/WIKI/"+searchData+"/data.json?api_key=stetDCHJ1XKLf1Sx5NZe";
 		$.ajax({
 			method: "get",
@@ -47,8 +51,8 @@ $(document).ready(function(){
 				$('.save').append(button);
 			}
 		});
-			getStock(userId);
-			getInfo(userId);
+			// getStock(userId);
+			// getInfo(userId);
 	});
 
 	//function that send ajax call to back end to get name of stock in the User portfolio
