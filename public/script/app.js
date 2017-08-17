@@ -1,5 +1,4 @@
 
-
 $(document).ready(function(){
 	console.log('ayy im working');
 	var userId= $('#userId').text();

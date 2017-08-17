@@ -4,6 +4,7 @@ Developer @GA Denver
 
 Project idea: creating an app that allow use to search for a specific index and save in their portfolio so that that can always open up the app and get the most updated price on the index that being tracked
 	
+	#Wireframe: ./mockup/mockup index.png
 	#Trello: https://trello.com/b/XEQcat40/wdi-project-2-app
 	#Live Website url: https://shrouded-ravine-75811.herokuapp.com/
 	#Tools: mocha, mongo, express, AJAX, EJS, Passport, dash/salt, css, Javascript
