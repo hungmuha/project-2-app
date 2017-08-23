@@ -40,7 +40,7 @@ $(document).ready(function(){
   "                        <span class='stockNumber'>" + data.dataset_data.data[0][i] + "</span>" +
   "                      </li>"+
   "						</ul>";
-					// stockInfo.append(data.dataset_data.column_names[i] + ":" + data.dataset_data.data[0][i]);
+
 					$(".stockList").append(stockInfo);
 				};
 				//create button to save the stock infor
