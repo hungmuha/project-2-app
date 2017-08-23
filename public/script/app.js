@@ -10,7 +10,8 @@ $(document).ready(function(){
 		// $('.portfolioInfo').remove();
 		// $('.stockList').remove();
 		// $('.stockPortfolio').remove();
-
+		$(this).addClass('avoidClick');
+		
 		var searchData=$('#search').val();
 		event.preventDefault();
 		console.log('submit');

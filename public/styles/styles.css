@@ -43,7 +43,9 @@ body{
 	font-weight: bold;
 	color:white;
 }
-
+.avoidClick{
+	pointer-events: none;
+}
 .back{
 	color:white;
 }
