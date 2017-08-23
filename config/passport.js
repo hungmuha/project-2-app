@@ -3,7 +3,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 
 module.exports = function(passport){
-
+//serializedUser
 	passport.serializeUser(function(user,callback){
 		callback(null,user.id);
 	});
@@ -13,7 +13,7 @@ module.exports = function(passport){
 			callback(err,user);
 		});
 	});
-
+//sign up function
 	passport.use('local-signup', new LocalStrategy({
 		usernameField: 'email',
 		passwordField: 'password',

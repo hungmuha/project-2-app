@@ -120,7 +120,6 @@ $(document).ready(function(){
 "						<ul class='list-group'>"+				
 "						<li class='list-group-item portfolioList'>" +
 "                        <h4 class='performanceInFile'> $" + data[i].Price + "</h4>" +
-// "                        <span class='stockNumber'>" + data.dataset_data.data[0][i] + "</span>" +
 "                      </li>"+
 "						</ul>";					
 					//bring the information on the page to see all the sotcj that already on watch list

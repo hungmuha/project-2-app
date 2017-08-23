@@ -19,7 +19,7 @@ Day 3: I stalled throughout most of this day as I was trying to learn the MVC la
 
 Day 4: I made most of my progress this day as I finally grabbed the concept of the flow in an app, the structure starting to make sense for me and I was able to finish up 80% of what I intended to do for this project. I struggle a gain this day as I was trying to make the portfolio of the user to automatically make a request to the API to grab the crucial up to date information on the index which is triggered by the click "search for another index". I learned Promises...one hell of a tool but hard to understand.
 
-Day 5: Presentation day...almost bombed it lol
+Day 5: Presentation day
 
 
 
