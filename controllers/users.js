@@ -16,7 +16,7 @@ function postSignup(request, response, next) {
 	//save a new user
 	console.log("hit postSignup");
 	let signupStrategy = passport.authenticate('local-signup',{
-		successRedirect:'/',
+		successRedirect:'/member',
 		failureRedirect:'/signup',
 		failureFlash: true
 	});
