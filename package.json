@@ -18,6 +18,7 @@
     "request": "^2.81.0"
   },
   "dependencies": {
+    "node":"8.6.0",
     "bcrypt": "^1.0.2",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
